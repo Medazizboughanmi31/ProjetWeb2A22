@@ -1,0 +1,11 @@
+/******************** parie affiche front
+
+<td>
+             <form method="POST" action="modifiermagasin.php">
+						<input type="submit" name="Modifier" value="Modifier" class=button_modifier>
+						<input type="hidden" value=<?PHP echo $magasin['id_magasin']; ?> name="id_magasin">
+					</form>*/
+                    </td>
+                    <td>
+                    <a href="supprimermagasin.php?id_magasin=<?php echo $magasin['id_magasin']; ?>">Supprimer</a>
+                    </td>
