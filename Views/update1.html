@@ -1,0 +1,150 @@
+<?php
+    include_once '../Model/reclamation.php';
+    include_once '../Controller/reclamationC.php';
+
+    $error = "";
+
+    // create reclamation
+    $reclamation = null;
+
+    // create an instance of the controller
+    $reclamationC = new reclamationC();
+    if (
+        isset($_POST["id_rec"]) &&
+		isset($_POST["date_rec"]) &&		
+        isset($_POST["id_user"]) &&
+		isset($_POST["objet"]) && 
+        isset($_POST["detail"]) && 
+        isset($_POST["etat"])
+    ) {
+        if (
+            !empty($_POST["id_rec"]) && 
+			!empty($_POST['date_rec']) &&
+            !empty($_POST["id_user"]) && 
+			!empty($_POST["objet"]) && 
+            !empty($_POST["detail"]) && 
+            !empty($_POST["etat"])
+        ) {
+            $reclamation = new reclamation(
+                $_POST['id_rec'],
+				$_POST['date_rec'],
+                $_POST['id_user'], 
+				$_POST['objet'],
+                $_POST['detail'],
+                $_POST['etat']
+            );
+            $reclamationC->modifierreclamation($reclamation, $_POST["id_rec"]);
+            header('Location:afficherListereclamations.php');
+        }
+        else
+            $error = "Missing information";
+    }    
+?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+ 
+        <style>
+            
+            .box{ margin-left: 10%;
+               
+                width: 80%;display: fixed;align-items: center;
+                backdrop-filter: blur(5px);
+                height:50em;
+                
+            }
+            body{
+
+                font-family: "Montserrat", sans-serif;
+                background-image: url('https://images.squarespace-cdn.com/content/v1/5d14e8bfa505890001205e37/1622211013212-NRT49RM5Y74D9XIM3DA9/le+blog+%284%29.png');
+                background-size: cover;
+                background-attachment: fixed;
+           
+            }
+          
+          
+         
+            b{text-transform:capitalize;
+            }
+        
+            .add{
+                padding:0;
+            }
+         input,textarea {
+            margin: 0 0 10px 0;
+    display: block;
+    margin-left: auto;
+    margin-right: auto ;
+    background-color: #ffffffab;
+    border: 0;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    width: 40%;
+}
+input:active,input:focus,textarea:active,textarea:focus{
+    background-color: #ffffffab;
+outline: none;
+transform: scale(1.1);
+transition: all 0.4s ease-in-out;
+}
+label{ color: white;font-size:x-large;
+    display:grid;
+place-items:center;
+margin: 0;
+padding:0;
+}
+textarea{
+height: 8em;
+}
+    .glyphicon-remove,.glyphicon-ok{
+                width: 100%;
+                padding:1em ;
+                margin: 0em;
+                 background-color: rgba(255, 255, 255, 0.336);
+                 color:black;
+                background-size: cover;
+             font-size: x-large;
+                opacity: 0.7;
+                border-radius: 12px;
+                margin-bottom: 0.5em;
+            }
+            .glyphicon-remove:hover,.glyphicon-ok:hover{
+                color:white;
+                background-color: rgba(224, 224, 224, 0.336);
+    
+            }
+         .but{
+            margin-left: 30%;
+               color:transparent;
+               width: 40%;display: fixed;align-items: center;              
+         }
+        </style>
+
+    </head>
+<body>
+
+<div class="box" style="padding-top: 4em;background-color: rgba(255, 180, 145, 0.527);">
+
+<label for="objet"><b>Objet</b></label>
+<input type="text" name="objet"id="objet" >
+
+<label for="detail"><b>Detail</b></label>
+<textarea id="detail" name="detail"></textarea>
+  
+<div class="but">
+<center>
+<a href="#" style="font-size: large;">
+    <span class="glyphicon glyphicon-ok"></span>
+  </a></center>
+ <center> 
+<a href="#" style="font-size: large;">
+    <span class="glyphicon glyphicon-remove"></span>
+  </a></center>
+</div>
+</div>
+</body>
+</html>
